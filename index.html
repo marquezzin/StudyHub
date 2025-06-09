@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Logo</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    .container {
+      background-color: #0B0F1F;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh; /* garante que ocupe toda a altura da tela */
+      cursor: pointer; /* para indicar que pode clicar */
+      transition: opacity 0.8s ease; /* transição suave */
+      opacity: 1;
+    }
+    /* Classe para o fade out */
+    .fade-out {
+      opacity: 0;
+    }
+  </style>
+</head>
+<body class="container">
+  <img src="assets/logo.svg" alt="Logo" />
+
+  <script>
+    const container = document.querySelector('.container');
+
+    container.addEventListener('click', () => {
+      // Adiciona a classe que faz o fade out
+      container.classList.add('fade-out');
+
+      // Depois que a transição acabar, redireciona para login.html
+      container.addEventListener('transitionend', () => {
+        window.location.href = 'login.html';
+      }, { once: true }); // listener só executa uma vez
+    });
+  </script>
+</body>
+</html>
