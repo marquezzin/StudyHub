@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyHub - Código Organizado (Versão Corrigida)</title>
+
+    <style>
+    /* 1. CONFIGURAÇÕES GLOBAIS E VARIÁVEIS */
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap');
+
+    :root {
+        --bg-main: #2C2F3D;
+        --bg-sidebar: #FFFFFF;
+        --bg-received-message: #404453;
+        --bg-sent-message: #FFFFFF;
+        --bg-active-nav: #f0f2f5;
+        --text-light: #FFFFFF;
+        --text-dark: #2C2F3D;
+        --text-muted: #B9BBBE;
+        --like-color: #E0245E;
+        --drawer-bg: #262935;
+        --font-primary: 'Nunito', sans-serif;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: var(--font-primary);
+        background-color: var(--bg-main);
+        color: var(--text-light);
+        height: 100vh;
+        overflow: hidden;
+        position: relative;
+    }
+
+    /* 2. LAYOUT PRINCIPAL */
+    .app-container {
+        display: flex;
+        height: 100%;
+    }
+
+    /* 3. SIDEBAR */
+    .sidebar {
+        width: 260px;
+        background-color: var(--bg-sidebar);
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        color: var(--text-dark);
+    }
+
+    .sidebar-header .logo {
+        font-size: 28px;
+        font-weight: 800;
+        margin-bottom: 40px;
+    }
+
+    .sidebar-nav ul {
+        list-style: none;
+    }
+
+    .sidebar-nav li a {
+        display: block;
+        padding: 12px 16px;
+        text-decoration: none;
+        color: var(--text-dark);
+        font-weight: 700;
+        font-size: 16px;
+        border-radius: 8px;
+        margin-bottom: 8px;
+    }
+
+    .sidebar-nav li a:hover {
+        background-color: var(--bg-active-nav);
+    }
+
+    .sidebar-nav li a.active {
+        background-color: #e0e6ff;
+        color: #4D6FFF;
+    }
+
+    /* 4. CONTEÚDO PRINCIPAL */
+    .main-content {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 24px 40px;
+    }
+
+    .main-header {
+        display: flex;
+        justify-content: flex-end; /* <<< ALTERADO AQUI */
+        align-items: center;
+        gap: 16px;                  /* <<< ADICIONADO AQUI */
+        margin-bottom: 24px;
+    }
+
+    .user-avatar, .message-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        flex-shrink: 0;
+    }
+
+    /* 5. FEED DE CHAT E BALÕES DE MENSAGEM */
+    .chat-feed {
+        flex-grow: 1;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 0 10px 10px 0;
+    }
+
+    .message-bubble {
+        display: flex;
+        gap: 16px;
+        max-width: 70%;
+        align-items: flex-start;
+    }
+
+    .message-content {
+        padding: 16px;
+        border-radius: 12px;
+        width: 100%;
+    }
+
+    .message-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+
+    .message-header strong {
+        font-size: 15px;
+    }
+
+    .message-text {
+        font-size: 15px;
+        line-height: 1.5;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+    
+    /* -- Variações de Balão de Mensagem -- */
+    .message-bubble.received {
+        align-self: flex-start;
+    }
+
+    .message-bubble.received .message-content {
+        background-color: var(--bg-received-message);
+        color: var(--text-light);
+    }
+
+    .message-bubble.sent {
+        align-self: flex-end;
+        flex-direction: row-reverse;
+    }
+
+    .message-bubble.sent .message-content {
+        background-color: var(--bg-sent-message);
+        color: var(--text-dark);
+    }
+
+    .message-bubble.sent .message-footer {
+        color: #555;
+    }
+
+    .message-bubble.sent .like-button.liked {
+        color: var(--like-color);
+    }
+    
+    /* -- Balão de Mensagem -- */
+    .message-footer {
+        margin-top: 12px;
+        display: flex;
+        gap: 16px;
+        font-size: 14px;
+        color: var(--text-muted);
+        align-items: center;
+    }
+
+    .like-button,
+    .comment-button {
+        background: none;
+        border: none;
+        color: inherit;
+        font-family: inherit;
+        font-size: inherit;
+        cursor: pointer;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .like-button.liked {
+        color: var(--like-color);
+        font-weight: bold;
+    }
+    
+    /* -- Opção Deletar -- */
+    .message-options {
+        position: relative;
+    }
+
+    .options-button {
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        cursor: pointer;
+        font-size: 20px;
+    }
+
+    .options-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: #4f5464;
+        border-radius: 6px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        padding: 5px;
+        z-index: 10;
+        width: 120px;
+    }
+    
+    .message-bubble.sent .options-menu {
+        background-color: #f0f0f0;
+    }
+
+    .options-menu.visible {
+        display: block;
+    }
+
+    .delete-button {
+        background-color: transparent;
+        border: none;
+        color: #ff6b6b;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        padding: 8px 10px;
+        width: 100%;
+        text-align: left;
+        border-radius: 4px;
+    }
+    
+    .message-bubble.sent .delete-button {
+        color: #d92d2d;
+    }
+
+    .delete-button:hover {
+        background-color: rgba(255, 107, 107, 0.2);
+    }
+    
+    /* 6. CHAT PRINCIPAL */
+    .chat-input-area {
+        padding-top: 20px;
+    }
+
+    .message-form {
+        display: flex;
+        align-items: center;
+        background-color: var(--bg-received-message);
+        padding: 8px 16px;
+        border-radius: 12px;
+    }
+
+    .message-form input {
+        flex-grow: 1;
+        background: none;
+        border: none;
+        outline: none;
+        color: var(--text-light);
+        font-size: 16px;
+    }
+
+    .message-form input::placeholder {
+        color: var(--text-muted);
+    }
+    
+    .icon-button {
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        font-size: 24px;
+        cursor: pointer;
+        margin-left: 12px;
+    }
+    
+    /* 7. GAVETA DE COMENTÁRIOS */
+    .comments-drawer {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 400px;
+        height: 100%;
+        background-color: var(--drawer-bg);
+        box-shadow: -5px 0 15px rgba(0,0,0,0.25);
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .comments-drawer.visible {
+        transform: translateX(0);
+    }
+
+    .drawer-header {
+        padding: 16px 20px;
+        border-bottom: 1px solid #404453;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    .drawer-header h3 {
+        font-size: 18px;
+    }
+
+    .close-drawer-button {
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .drawer-content {
+        flex-grow: 1;
+        overflow-y: auto;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .original-post-container .message-bubble {
+        max-width: 100%;
+    }
+
+    .replies-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        padding-left: 20px;
+        border-left: 2px solid #404453;
+    }
+    
+    .replies-list .message-avatar {
+        width: 35px;
+        height: 35px;
+    }
+
+    .drawer-footer {
+        padding: 10px 20px;
+        border-top: 1px solid #404453;
+        flex-shrink: 0;
+    }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header"><h1 class="logo">StudyHub</h1></div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="#"><i></i> Home</a></li>
+                    <li><a href="#"><i></i> Calendário</a></li>
+                    <li><a href="#" class="active"><i></i> Comunidade</a></li>
+                    <li><a href="#"><i></i> Categorias</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header class="main-header">
+                <h2>Olá, Thales!</h2>
+                <img src="Avatar/818a4a84f4e45638c2445ce365971a0a.png" alt="Avatar do usuário Thales" class="user-avatar">
+            </header>
+            <section class="chat-feed">
+                <article class="message-bubble received" data-post-id="post-1">
+                    <img src="Avatar/p_380164-119771.avif" alt="Avatar de Gabriela Lima" class="message-avatar">
+                    <div class="message-content">
+                        <div class="message-header"><strong>Gabriela Lima</strong><div class="message-options"><button class="options-button">...</button><div class="options-menu"><button class="delete-button">Deletar</button></div></div></div>
+                        <p class="message-text">Eu gostaria de focar mais nos meus estudos, dicas?</p>
+                        <div class="message-footer">
+                            <button class="like-button">♡ <span class="like-count">20</span></button>
+                            <button class="comment-button">💬 <span class="comment-count">2</span></button>
+                        </div>
+                    </div>
+                </article>
+
+                 <article class="message-bubble received" data-post-id="post-2">
+                    <img src="Avatar/pe380164-121867.avif" alt="Avatar de Laura Peixoto" class="message-avatar">
+                    <div class="message-content">
+                        <div class="message-header"><strong>Laura Peixoto</strong><div class="message-options"><button class="options-button">...</button><div class="options-menu"><button class="delete-button">Deletar</button></div></div></div>
+                        <p class="message-text">Alguém fez resumo do projeto de POO??? Tô desesperada</p>
+                        <div class="message-footer">
+                           <button class="like-button">♡ <span class="like-count">13</span></button>
+                           <button class="comment-button">💬 <span class="comment-count">1</span></button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="message-bubble sent" data-post-id="post-3">
+                     <div class="message-content">
+                         <div class="message-header"><strong>Thales Rassi</strong><div class="message-options"><button class="options-button">...</button><div class="options-menu"><button class="delete-button">Deletar</button></div></div></div>
+                         <p class="message-text">Gente não esqueçam da prova segunda!!</p>
+                         <div class="message-footer">
+                            <button class="like-button">♡ <span class="like-count">78</span></button>
+                            <button class="comment-button">💬 <span class="comment-count">0</span></button>
+                         </div>
+                     </div>
+                     <img src="Avatar/818a4a84f4e45638c2445ce365971a0a.png" alt="Avatar de Thales" class="message-avatar">
+                </article>
+            </section>
+            <footer class="chat-input-area">
+                <form class="message-form">
+                    <input type="text" placeholder="Escreva Aqui..." autocomplete="off">
+                    <button type="submit" class="icon-button">➤</button>
+                </form>
+            </footer>
+        </main>
+    </div>
+    <aside class="comments-drawer"></aside>
+
+    <script>
+        // 1. DEFINIÇÃO DOS AVATARES DOS USUÁRIOS
+        const userAvatars = {
+            thales: 'Avatar/818a4a84f4e45638c2445ce365971a0a.png',
+            gabriela: 'Avatar/p_380164-119771.avif',
+            laura: 'Avatar/pe380164-121867.avif',
+            matheus: 'Avatar/33adr34.jpg'
+        };
+
+        /* BLOCO 1: SELETORES DE ELEMENTOS E CONSTANTES GLOBAIS */
+        const chatFeed = document.querySelector('.chat-feed');
+        const messageForm = document.querySelector('.message-form');
+        const messageInput = messageForm.querySelector('input');
+        const commentsDrawer = document.querySelector('.comments-drawer');
+
+        /* BLOCO 2: ESTADO DA APLICAÇÃO */
+        const currentUser = {
+            name: 'Thales Rassi',
+            avatar: userAvatars.thales
+        };
+
+        let commentsData = {
+            "post-1": [
+                { id: `reply-${Date.now() + 1}`, user: "Thales Rassi", avatar: userAvatars.thales, text: "Técnica Pomodoro! Estude por 25 minutos e descanse 5. Ajuda muito a manter o foco." },
+                { id: `reply-${Date.now() + 2}`, user: "Laura Peixoto", avatar: userAvatars.laura, text: "Verdade, @Thales! Eu também uso e funciona demais." },
+            ],
+            "post-2": [
+                { id: `reply-${Date.now() + 3}`, user: "Matheus Souza", avatar: userAvatars.matheus, text: "Opa, eu tenho um resumo sim, te mando no privado!" }
+            ],
+            "post-3": []
+        };
+        
+        /* BLOCO 3: FUNÇÕES DE RENDERIZAÇÃO */
+
+        function createSentMessageHTML(text) {
+            const postId = `post-${Date.now()}`;
+            return `
+                <article class="message-bubble sent" data-post-id="${postId}">
+                    <div class="message-content">
+                        <div class="message-header"><strong>${currentUser.name}</strong><div class="message-options"><button class="options-button">...</button><div class="options-menu"><button class="delete-button">Deletar</button></div></div></div>
+                        <p class="message-text">${text}</p>
+                        <div class="message-footer">
+                           <button class="like-button">♡ <span class="like-count">0</span></button>
+                           <button class="comment-button">💬 <span class="comment-count">0</span></button>
+                        </div>
+                    </div>
+                    <img src="${currentUser.avatar}" alt="Avatar de ${currentUser.name}" class="message-avatar">
+                </article>`;
+        }
+
+        function createReplyHTML(reply) {
+            const isSentByCurrentUser = (reply.user === currentUser.name);
+            const bubbleClass = isSentByCurrentUser ? 'sent' : 'received';
+            
+            const optionsMenuHTML = isSentByCurrentUser ? `
+                <div class="message-options">
+                    <button class="options-button">...</button>
+                    <div class="options-menu">
+                        <button class="delete-button">Deletar</button>
+                    </div>
+                </div>
+            ` : '';
+            
+            const avatarHTML = `<img src="${reply.avatar}" alt="Avatar de ${reply.user}" class="message-avatar">`;
+            
+            const articleContent = `
+                   <div class="message-content">
+                     <div class="message-header">
+                         <strong>${reply.user}</strong>
+                         ${optionsMenuHTML}
+                     </div>
+                     <p class="message-text">${reply.text}</p>
+                   </div>
+            `;
+
+            if (isSentByCurrentUser) {
+                return `<article class="message-bubble ${bubbleClass}" data-reply-id="${reply.id}">${articleContent}${avatarHTML}</article>`;
+            }
+            return `<article class="message-bubble ${bubbleClass}" data-reply-id="${reply.id}">${avatarHTML}${articleContent}</article>`;
+        }
+
+
+        function renderCommentsDrawer(postId) {
+            const postElement = chatFeed.querySelector(`[data-post-id="${postId}"]`);
+            if (!postElement) return;
+
+            const postHTML = postElement.outerHTML;
+            const replies = commentsData[postId] || [];
+            let repliesHTML = replies.map(createReplyHTML).join('');
+
+            commentsDrawer.innerHTML = `
+                <div class="drawer-header"><h3>Comentários</h3><button class="close-drawer-button">×</button></div>
+                <div class="drawer-content">
+                    <div class="original-post-container">${postHTML}</div>
+                    <div class="replies-list">${repliesHTML}</div>
+                </div>
+                <div class="drawer-footer">
+                    <form class="message-form reply-form" data-post-id="${postId}">
+                        <input type="text" placeholder="Escreva uma resposta..." autocomplete="off">
+                        <button type="submit" class="icon-button">➤</button>
+                    </form>
+                </div>`;
+            
+            const postInsideDrawer = commentsDrawer.querySelector('.original-post-container .message-bubble');
+            postInsideDrawer.querySelector('.like-button')?.setAttribute('disabled', true);
+            postInsideDrawer.querySelector('.comment-button')?.setAttribute('disabled', true);
+            
+            commentsDrawer.classList.add('visible');
+        }
+
+        /* BLOCO 4: MANIPULADORES DE EVENTOS */
+
+        function handleMainFormSubmit(event) {
+            event.preventDefault();
+            const messageText = messageInput.value.trim();
+            if (messageText === '') return;
+            const newMessageHTML = createSentMessageHTML(messageText);
+            chatFeed.insertAdjacentHTML('beforeend', newMessageHTML);
+            messageInput.value = '';
+            chatFeed.scrollTop = chatFeed.scrollHeight;
+            messageInput.focus();
+        }
+
+        function handleChatFeedClick(event) {
+            const target = event.target;
+
+            const likeButton = target.closest('.like-button');
+            if (likeButton) {
+                const countSpan = likeButton.querySelector('.like-count');
+                let currentCount = parseInt(countSpan.textContent);
+                likeButton.classList.toggle('liked');
+                currentCount += likeButton.classList.contains('liked') ? 1 : -1;
+                countSpan.textContent = currentCount;
+                return; 
+            }
+
+            const optionsButton = target.closest('.options-button');
+            if (optionsButton) {
+                const menu = optionsButton.nextElementSibling;
+                document.querySelectorAll('.options-menu.visible').forEach(openMenu => {
+                    if (openMenu !== menu) openMenu.classList.remove('visible');
+                });
+                menu.classList.toggle('visible');
+                return; 
+            }
+
+            const deleteButton = target.closest('.delete-button');
+            if (deleteButton) {
+                const messageToDelete = deleteButton.closest('.message-bubble');
+                if (messageToDelete) {
+                    const postId = messageToDelete.dataset.postId;
+                    delete commentsData[postId];
+                    messageToDelete.remove();
+                }
+                return;
+            }
+
+            const commentButton = target.closest('.comment-button');
+            if (commentButton) {
+                const postId = commentButton.closest('.message-bubble').dataset.postId;
+                renderCommentsDrawer(postId);
+                return;
+            }
+        }
+
+        function handleDrawerClick(event) {
+            const target = event.target;
+
+            if (target.closest('.close-drawer-button')) {
+                commentsDrawer.classList.remove('visible');
+                return;
+            }
+            
+            const mainDeleteButton = target.closest('.original-post-container .delete-button');
+            if (mainDeleteButton) {
+                const postInDrawer = mainDeleteButton.closest('.message-bubble');
+                const postId = postInDrawer.dataset.postId;
+                const postInFeed = chatFeed.querySelector(`.message-bubble[data-post-id="${postId}"]`);
+                postInFeed?.remove();
+                delete commentsData[postId];
+                commentsDrawer.classList.remove('visible');
+                return;
+            }
+
+            const replyOptionsButton = target.closest('.replies-list .options-button');
+            if (replyOptionsButton) {
+                const menu = replyOptionsButton.nextElementSibling;
+                commentsDrawer.querySelectorAll('.options-menu.visible').forEach(openMenu => {
+                    if (openMenu !== menu) openMenu.classList.remove('visible');
+                });
+                menu.classList.toggle('visible');
+                return;
+            }
+            
+            const replyDeleteButton = target.closest('.replies-list .delete-button');
+            if (replyDeleteButton) {
+                const replyBubble = replyDeleteButton.closest('.message-bubble');
+                const replyIdToDelete = replyBubble.dataset.replyId;
+                const postId = commentsDrawer.querySelector('.reply-form').dataset.postId;
+
+                if (commentsData[postId] && replyIdToDelete) {
+                    commentsData[postId] = commentsData[postId].filter(reply => reply.id !== replyIdToDelete);
+                }
+
+                replyBubble.remove();
+                
+                const commentCountSpan = chatFeed.querySelector(`.message-bubble[data-post-id="${postId}"] .comment-count`);
+                if (commentCountSpan) {
+                    commentCountSpan.textContent = commentsData[postId]?.length || 0;
+                }
+                return;
+            }
+        }
+
+        function handleDrawerSubmit(event) {
+            event.preventDefault();
+            if (!event.target.classList.contains('reply-form')) return;
+
+            const replyInput = event.target.querySelector('input');
+            const replyText = replyInput.value.trim();
+            const postId = event.target.dataset.postId;
+
+            if (replyText === '') return;
+
+            const newReplyData = {
+                id: `reply-${Date.now()}`,
+                user: currentUser.name,
+                avatar: currentUser.avatar,
+                text: replyText
+            };
+            
+            commentsData[postId] = commentsData[postId] || [];
+            commentsData[postId].push(newReplyData);
+            
+            const newReplyHTML = createReplyHTML(newReplyData);
+            commentsDrawer.querySelector('.replies-list').insertAdjacentHTML('beforeend', newReplyHTML);
+            
+            const commentCountSpan = document.querySelector(`.message-bubble[data-post-id="${postId}"] .comment-count`);
+            if (commentCountSpan) {
+                commentCountSpan.textContent = commentsData[postId].length;
+            }
+
+            replyInput.value = '';
+            replyInput.focus();
+        }
+
+        function handleDocumentClick(event) {
+            if (!event.target.closest('.message-options')) {
+                document.querySelectorAll('.options-menu.visible').forEach(menu => {
+                    menu.classList.remove('visible');
+                });
+            }
+        }
+        
+        /* BLOCO 5: INICIALIZAÇÃO DA APLICAÇÃO */
+        
+        function init() {
+            messageForm.addEventListener('submit', handleMainFormSubmit);
+            chatFeed.addEventListener('click', handleChatFeedClick);
+            commentsDrawer.addEventListener('click', handleDrawerClick);
+            commentsDrawer.addEventListener('submit', handleDrawerSubmit);
+            document.addEventListener('click', handleDocumentClick);
+            console.log("StudyHub App inicializado com sucesso!");
+        }
+
+        init();
+    </script>
+</body>
+</html>
