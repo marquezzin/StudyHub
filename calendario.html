@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyHub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <style>@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');</style>
+    <style>
+        body {
+            background-color: #0d0f1a;
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            padding: 60px;
+        }
+        .sidebar {
+            background-color: white;
+            min-height: 100vh;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+        }
+        .sidebar a {
+            color: #0B0F1F;
+            text-decoration: none;
+            display: block;
+            padding: 15px;
+            font-weight: 600;
+            font-size: 1.5rem;
+            overflow-wrap: break-word;
+            border-radius: 8px;
+        }
+        .sidebar a.active {
+            background-color: #d3d6fb;
+            border-radius: 8px;
+        }
+    
+        
+        .sidebar a:hover:not(.active) {
+            background-color: #eef0ff; /* tom suave para hover */
+            cursor: pointer;
+        }
+        .card {
+            background-color: #393C4D;
+            border: none;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .card-title, .card-text {
+            color: white;
+        }
+
+
+        .card-maior{
+            border-top: 1px solid #3B4461;
+            border-bottom: 1px solid #3B4461;
+            border-right: 1px solid #3B4461;
+            border-left: none;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+        .fs-custom{
+            font-size: 2.25rem;
+        }
+            /* 4. CONTEÚDO PRINCIPAL */
+    .main-content {
+        border: 1px solid #3B4461;
+        border-radius: 20px;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 24px 40px;
+        background-color: #393C4D;
+    }
+
+    .main-header {
+        display: flex;
+        justify-content: flex-end; /* <<< ALTERADO AQUI */
+        align-items: center;
+        gap: 16px;                  /* <<< ADICIONADO AQUI */
+        margin-bottom: 24px;
+    }
+
+    .user-avatar, .message-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        flex-shrink: 0;
+    }
+        @media (max-width: 768px) {
+            .sidebar {
+                border-radius: 20px;
+                border-bottom-left-radius: 0px;
+                border-bottom-right-radius: 0px;
+            }
+            .card-maior{
+                border-top: none;
+                border-bottom: 1px solid #3B4461;
+                border-right: 1px solid #3B4461;
+                border-left: 1px solid #3B4461;
+                border-bottom-left-radius: 20px;
+                border-bottom-right-radius: 20px;
+                border-top-right-radius: 0;
+            }
+        }
+        .w-35 {
+            width: 35% !important;
+        }
+        .calendar-day {
+            cursor: pointer;
+            text-align: center;
+            padding: 8px;
+            border-radius: 50%;
+            transition: background-color 0.2s ease;
+            aspect-ratio: 1; /* Mantém formato circular responsivo */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+        }
+        
+        .calendar-day:hover {
+            background-color: #e4e5ff;
+        }
+        
+        .calendar-day.active {
+            background-color: #e4e5ff;
+        }
+        
+        .calendar-day.hoje {
+            background-color: #2F1F65;
+            color: white;
+        }
+        
+    
+        .calendar-day.compromisso {
+            border: 2px solid #2F1F65;
+        }
+        .botao-plus {
+            width: 56px;
+            height: 56px;
+            background-color: #2F1F65;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          }
+          
+          .botao-plus:hover {
+            background-color: #241451;
+          }
+          .dot {
+            background-color: #241451;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+          }
+          .nav-toggle-container {
+            background-color: white;
+            border-radius: 999px;
+            display: flex;
+            padding: 6px;
+            border: 2px solid white;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 420px;
+            justify-content: center;
+          }
+          
+          .nav-toggle {
+            background-color: transparent;
+            border: none;
+            border-radius: 999px;
+            padding: 10px 32px;
+            color: #2F1F65;
+            font-weight: 400;
+            font-size: 1.75rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+          }
+          
+          .nav-toggle.active {
+            background-color: #2F1F65;
+            color: white;
+          }
+
+          .custom-checkbox {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #2F1F65;
+            border-radius: 4px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+          }
+          
+          .custom-checkbox:checked {
+            background-color: #2F1F65;
+            border-color: #2F1F65;
+          }
+          
+          .custom-checkbox:checked::before {
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -60%);
+          }
+
+          /* ✅ Aplica o risco ao texto quando checkbox for marcado */
+        .custom-checkbox:checked + .compromisso-label {
+            text-decoration: line-through;
+            color: #2F1F65;
+            transition: all 0.2s ease;
+        }
+          
+    </style>
+
+</head>
+
+  
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar p-3">
+                <h3 class="fw-bold fs-custom text-black mb-5 text-center p-3 text-break">StudyHub</h3>
+                <a href="#"> <i class="bi bi-house-fill"></i>  Home</a>
+                <a href="#" class="active"> <i class="bi bi-calendar"></i> Calendário</a>
+                <a href="community.html"> <i class="bi bi-people-fill"></i> Comunidade</a>
+                <a href="#"> <i class="bi bi-list"></i> Categorias</a>
+                <a href="assets/Briefing1.pdf"  target="_blank" rel="noopener noreferrer"> <i class="bi bi-file-text"></i> Briefing</a>
+            </div>
+
+
+            <!-- Main Content -->
+            <div class="col-md-10 p-5 card-maior">
+                <main class="main-content">
+                    <header class="main-header mb-4">
+                      <h3>Olá, Thales!</h3>
+                      <img src="Avatar/818a4a84f4e45638c2445ce365971a0a.png" alt="Avatar do usuário Thales" class="user-avatar">
+                    </header>
+                  
+                    <!-- Navegação entre abas -->
+                    <div class="nav-toggle-container mb-4" style="margin-left: 65px;">
+                        <button class="nav-toggle active" data-tab="pendentes">Pendentes</button>
+                        <button class="nav-toggle" data-tab="finalizados">Finalizados</button>
+                    </div>
+                  
+                    <!-- Conteúdo dividido em calendário e compromissos -->
+                    <div class="d-flex gap-5 flex-wrap">
+                      <!-- Calendário -->
+                      <div class="p-4 bg-white text-dark rounded-4" style="flex: 1.2; max-width: 550px;">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                          <button class="btn btn-light rounded-circle"><i class="bi bi-arrow-left"></i></button>
+                          <h4 class="mb-0 fs-2">Junho de 2025</h4>
+                          <button class="btn btn-light rounded-circle"><i class="bi bi-arrow-right"></i></button>
+                        </div>
+                        <hr class="my-2">
+                  
+                        <div class="d-grid" style="grid-template-columns: repeat(7, 1fr); gap: 12px; font-size: 1.2rem;">
+                          <!-- Dias do mês -->
+                          <!-- Cada dia recebe a classe .calendar-day e data-dia="número" -->
+                          <div class="calendar-day text-muted" data-dia="29">29</div>
+                          <div class="calendar-day text-muted">30</div>
+                          <div class="calendar-day text-muted">31</div>
+                          <div class="calendar-day" data-dia="1">1</div>
+                          <div class="calendar-day" data-dia="2">2</div>
+                          <div class="calendar-day" data-dia="3">3</div>
+                          <div class="calendar-day" data-dia="4">4</div>
+                          <div class="calendar-day" data-dia="5">5</div>
+                          <div class="calendar-day" data-dia="6" style="border: 2px solid #2F1F65; border-radius: 50%; padding: 4px;">6</div>
+                          <div class="calendar-day" data-dia="7">7</div>
+                          <div class="calendar-day" data-dia="8">8</div>
+                          <div class="calendar-day" data-dia="9">9</div>
+                          <div class="calendar-day" data-dia="10">10</div>
+                          <div class="calendar-day" data-dia="11">11</div>
+                          <div class="calendar-day" data-dia="12">12</div>
+                          <div class="calendar-day" data-dia="13">13</div>
+                          <div class="calendar-day" data-dia="14">14</div>
+                          <div class="calendar-day" data-dia="15">15</div>
+                          <div class="calendar-day" data-dia="16">16</div>
+                          <div class="calendar-day" data-dia="17" style="border: 2px solid #2F1F65; border-radius: 50%; padding: 4px;">17</div>
+                          <div class="calendar-day" data-dia="18">18</div>
+                          <div class="calendar-day" data-dia="19" style="border: 2px solid #2F1F65; border-radius: 50%; padding: 4px;">19</div>
+                          <div class="calendar-day" data-dia="20">20</div>
+                          <div class="calendar-day" data-dia="21">21</div>
+                          <div class="calendar-day" data-dia="22">22</div>
+                          <div class="calendar-day hoje" data-dia="23">23</div>
+                          <div class="calendar-day" data-dia="24">24</div>
+                          <div class="calendar-day" data-dia="25">25</div>
+                          <div class="calendar-day" data-dia="26">26</div>
+                          <div class="calendar-day" data-dia="27">27</div>
+                          <div class="calendar-day" data-dia="28">28</div>
+                          <div class="calendar-day" data-dia="29">29</div>
+                          <div class="calendar-day" data-dia="30">30</div>
+                          <div class="calendar-day" data-dia="31">31</div>
+                        </div>
+                  
+                        <div class="d-flex justify-content-between align-items-center mt-4 px-2">
+                            <!-- Legendas -->
+                            <div class="d-flex gap-4 align-items-center">
+                              <div class="d-flex align-items-center gap-2">
+                                <span class="rounded-circle" style="width:16px; height:16px; background-color:#2F1F65; display: inline-block;"></span>
+                                <span style="font-size: 1.1rem;">Hoje</span>
+                              </div>
+                              <div class="d-flex align-items-center gap-2">
+                                <span class="rounded-circle" style="width:16px; height:16px; border: 2px solid #2F1F65; display: inline-block;"></span>
+                                <span style="font-size: 1.1rem;">Compromissos</span>
+                              </div>
+                            </div>
+                          
+                            <div class="botao-plus" data-bs-toggle="modal" data-bs-target="#modalCompromisso">
+                                <i class="bi bi-plus"></i>
+                              </div>
+                          </div>
+                      </div>
+                  
+                    <!-- Painel de compromissos ao lado do calendário -->
+                    <div class="d-flex flex-column" style="width: 100%; max-width: 500px;">
+                        <h4 class="mb-3 fs-1" style="margin-left: 30px;" id="data-titulo">23 de Junho</h4>
+                    
+                        <div id="painel-dia" class="bg-white text-dark rounded-5 d-flex align-items-center justify-content-center" style="height: 100%; min-height: 400px;">
+                        <div id="mensagem-compromissos" class="text-center px-3 w-100">
+                            <p class="text-muted mb-0 fs-2">Sem compromissos agendados.</p>
+                        </div>
+                        </div>
+                    </div>
+
+                    </div>
+                  </main>
+                  
+                  
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalCompromisso" tabindex="-1" aria-labelledby="modalCompromissoLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" style="color: #2F1F65;" id="modalCompromissoLabel">Novo Compromisso</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+              <form id="form-compromisso">
+                <div class="mb-3">
+                  <label for="textoCompromisso" class="form-label" style="color: #2F1F65;">Descrição</label>
+                  <input type="text" class="form-control" id="textoCompromisso" required>
+                </div>
+                <div class="mb-3">
+                  <label for="dataCompromisso" class="form-label" style="color: #2F1F65;">Data</label>
+                  <input type="date" class="form-control" id="dataCompromisso" min="1" max="31" placeholder="Dia do mês" required>
+                </div>
+                <button type="submit" class="btn text-white" style="background-color: #2F1F65; border: none;">Salvar</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Compromissos do mês
+        const compromissos = {
+            6: ["Estudar lógica de programação", "Reunião com grupo de POO às 18h"],
+            17: ["Apresentação do projeto de ADM", "Entregar exercício de estatística"],
+            19: ["Revisão para a prova de Marketing", "Enviar trabalho no Moodle"]
+        };
+
+        function marcarDiasComCompromisso() {
+            document.querySelectorAll('.calendar-day[data-dia]').forEach(el => {
+              const dia = parseInt(el.dataset.dia);
+              if (compromissos[dia] && compromissos[dia].length > 0) {
+                el.classList.add('compromisso'); // classe que aplica o círculo ou borda
+              } else {
+                el.classList.remove('compromisso');
+              }
+            });
+          }
+
+        document.addEventListener("DOMContentLoaded", function () {
+          function getMesNome(mes) {
+            const meses = [
+              "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+              "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+            ];
+            return meses[mes];
+          }
+      
+
+      
+          // Evento de clique nos dias do calendário
+          document.querySelectorAll('.calendar-day[data-dia]').forEach(dia => {
+            dia.addEventListener('click', () => {
+              const diaNumero = dia.dataset.dia;
+              const mesNome = getMesNome(5); // Agosto = índice 7
+      
+              // Atualiza título do painel
+              document.getElementById('data-titulo').textContent = `${diaNumero} de ${mesNome}`;
+      
+              // Atualiza conteúdo
+              const painel = document.getElementById('mensagem-compromissos');
+              painel.innerHTML = ""; // limpa antes
+      
+              if (compromissos[diaNumero]) {
+                const ul = document.createElement('ul');
+                ul.classList.add('list-unstyled', 'mb-0');
+              
+                compromissos[diaNumero].forEach((item, index) => {
+                  const li = document.createElement('li');
+                  li.innerHTML = `
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                      <input type="checkbox" id="check-${diaNumero}-${index}" class="form-check-input custom-checkbox" />
+                      <label for="check-${diaNumero}-${index}" class="mb-0 fs-4 compromisso-label">${item}</label>
+                    </div>
+                  `;
+                  ul.appendChild(li);
+                });
+              
+                painel.appendChild(ul);
+              } else {
+                painel.innerHTML = `<p class="text-muted text-center fs-2">Sem compromissos agendados.</p>`;
+              }
+              
+                // Estiliza o dia clicado como ativo
+                document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('active'));
+                dia.classList.add('active');
+      
+            });
+          });
+        });
+
+        document.querySelectorAll('.nav-toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+              document.querySelectorAll('.nav-toggle').forEach(b => b.classList.remove('active'));
+              btn.classList.add('active');
+    
+            });
+        });
+
+        document.getElementById('form-compromisso').addEventListener('submit', function (e) {
+            e.preventDefault();
+          
+            const texto = document.getElementById('textoCompromisso').value.trim();
+            const diaCompleto = document.getElementById('dataCompromisso').value;
+            const dia = parseInt(diaCompleto.split("-")[2]); // pega o '19' do '2025-05-19'
+          
+            if (!texto || isNaN(dia)) return;
+          
+            // Salva no objeto
+            if (!compromissos[dia]) compromissos[dia] = [];
+            compromissos[dia].push(texto);
+            marcarDiasComCompromisso();
+          
+            // Fecha o modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('modalCompromisso'));
+            modal.hide();
+          
+            // Se o painel já estiver mostrando esse dia, recarrega a lista
+            const tituloData = document.getElementById('data-titulo');
+            if (tituloData && tituloData.textContent.includes(dia)) {
+              const eventoFalso = new Event('click');
+              document.querySelector(`.calendar-day[data-dia="${dia}"]`)?.dispatchEvent(eventoFalso);
+            }
+          
+            // Limpa o formulário
+            document.getElementById('form-compromisso').reset();
+          });
+      </script>
+
+</body>
+</html>

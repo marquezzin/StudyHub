@@ -106,6 +106,14 @@
     }
 
     .user-avatar, .message-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        flex-shrink: 0;
+    }
+
+    .message-avatar{
         width: 40px;
         height: 40px;
         border-radius: 50%;
@@ -144,7 +152,7 @@
     }
 
     .message-header strong {
-        font-size: 15px;
+        font-size: 1.2rem;
         color: #240983;
     }
 
@@ -152,7 +160,7 @@
         font-size: 15px;
         line-height: 1.5;
         white-space: pre-wrap;
-        word-wrap: break-word;
+        word-wrap: break-word;   
     }
     
     /* -- Variações de Balão de Mensagem -- */
@@ -403,7 +411,7 @@
         <div class="col-md-2 sidebar p-3">
             <h3 class="fw-bold fs-custom text-black mb-5 text-center p-3 text-break">StudyHub</h3>
             <a href="#"> <i class="bi bi-house-fill"></i>  Home</a>
-            <a href="#"> <i class="bi bi-calendar"></i> Calendário</a>
+            <a href="calendario.html"> <i class="bi bi-calendar"></i> Calendário</a>
             <a href="#"  class="active"> <i class="bi bi-people-fill"></i> Comunidade</a>
             <a href="#"> <i class="bi bi-list"></i> Categorias</a>
             <a href="assets/Briefing1.pdf"  target="_blank" rel="noopener noreferrer"> <i class="bi bi-file-text"></i> Briefing</a>
@@ -411,7 +419,7 @@
         <div class="card-maior">
             <main class="main-content">
                 <header class="main-header">
-                    <h2>Olá, Thales!</h2>
+                    <h3>Olá, Thales!</h3>
                     <img src="Avatar/818a4a84f4e45638c2445ce365971a0a.png" alt="Avatar do usuário Thales" class="user-avatar">
                 </header>
                 <section class="chat-feed">
