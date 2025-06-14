@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StudyHub - Código Organizado (Versão Corrigida)</title>
+    <title>Community</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <style>@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');</style>
 
     <style>
     /* 1. CONFIGURAÇÕES GLOBAIS E VARIÁVEIS */
@@ -23,19 +26,12 @@
         --font-primary: 'Nunito', sans-serif;
     }
 
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
 
     body {
-        font-family: var(--font-primary);
-        background-color: var(--bg-main);
-        color: var(--text-light);
-        height: 100vh;
-        overflow: hidden;
-        position: relative;
+        background-color: #0d0f1a;
+        color: white;
+        font-family: 'Outfit', sans-serif;
+        padding: 60px;
     }
 
     /* 2. LAYOUT PRINCIPAL */
@@ -44,52 +40,61 @@
         height: 100%;
     }
 
-    /* 3. SIDEBAR */
     .sidebar {
-        width: 260px;
-        background-color: var(--bg-sidebar);
-        padding: 24px;
+        background-color: white;
+        min-height: 100vh;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+    }
+    .sidebar a {
+        color: #0B0F1F;
+        text-decoration: none;
+        display: block;
+        padding: 15px;
+        font-weight: 600;
+        font-size: 1.5rem;
+        overflow-wrap: break-word;
+        border-radius: 8px;
+    }
+    .sidebar a.active {
+        background-color: #d3d6fb;
+        border-radius: 8px;
+    }
+
+    
+    .sidebar a:hover:not(.active) {
+        background-color: #eef0ff; /* tom suave para hover */
+        cursor: pointer;
+    }
+    
+    .card-maior{
+        border-top: 1px solid #3B4461;
+        border-bottom: 1px solid #3B4461;
+        border-right: 1px solid #3B4461;
+        border-left: none;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+        flex-grow: 1;
+        padding: 37px 50px;                /* <-- Espaço interno */
+        box-sizing: border-box;       /* Garante que padding não estoure largura */
+        flex-grow: 1;
         display: flex;
         flex-direction: column;
-        color: var(--text-dark);
     }
-
-    .sidebar-header .logo {
-        font-size: 28px;
-        font-weight: 800;
-        margin-bottom: 40px;
-    }
-
-    .sidebar-nav ul {
-        list-style: none;
-    }
-
-    .sidebar-nav li a {
-        display: block;
-        padding: 12px 16px;
-        text-decoration: none;
-        color: var(--text-dark);
-        font-weight: 700;
-        font-size: 16px;
-        border-radius: 8px;
-        margin-bottom: 8px;
-    }
-
-    .sidebar-nav li a:hover {
-        background-color: var(--bg-active-nav);
-    }
-
-    .sidebar-nav li a.active {
-        background-color: #e0e6ff;
-        color: #4D6FFF;
+    .fs-custom{
+        font-size: 2.25rem;
     }
 
     /* 4. CONTEÚDO PRINCIPAL */
     .main-content {
-        flex-grow: 1;
+        border: 1px solid #3B4461;
+        border-radius: 20px;
+        width: 100%;
+        height: 100%;
         display: flex;
         flex-direction: column;
         padding: 24px 40px;
+        background-color: #393C4D;
     }
 
     .main-header {
@@ -140,6 +145,7 @@
 
     .message-header strong {
         font-size: 15px;
+        color: #240983;
     }
 
     .message-text {
@@ -155,8 +161,8 @@
     }
 
     .message-bubble.received .message-content {
-        background-color: var(--bg-received-message);
-        color: var(--text-light);
+        background-color: var(--bg-sent-message);
+        color: var(--text-dark);
     }
 
     .message-bubble.sent {
@@ -183,7 +189,7 @@
         display: flex;
         gap: 16px;
         font-size: 14px;
-        color: var(--text-muted);
+        color: #555;
         align-items: center;
     }
 
@@ -270,7 +276,7 @@
     .message-form {
         display: flex;
         align-items: center;
-        background-color: var(--bg-received-message);
+        background-color: #FFFFFF;
         padding: 8px 16px;
         border-radius: 12px;
     }
@@ -280,7 +286,7 @@
         background: none;
         border: none;
         outline: none;
-        color: var(--text-light);
+        color: var(--text-dark);
         font-size: 16px;
     }
 
@@ -370,70 +376,90 @@
         border-top: 1px solid #404453;
         flex-shrink: 0;
     }
+    @media (max-width: 768px) {
+        .sidebar {
+            border-radius: 20px;
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 0px;
+        }
+        .card-maior{
+            border-top: none;
+            border-bottom: 1px solid #3B4461;
+            border-right: 1px solid #3B4461;
+            border-left: 1px solid #3B4461;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            border-top-right-radius: 0;
+        }
+    }
+    .w-35 {
+        width: 35% !important;
+    }
     </style>
 </head>
 <body>
     <div class="app-container">
-        <aside class="sidebar">
-            <div class="sidebar-header"><h1 class="logo">StudyHub</h1></div>
-            <nav class="sidebar-nav">
-                <ul>
-                    <li><a href="#"><i></i> Home</a></li>
-                    <li><a href="#"><i></i> Calendário</a></li>
-                    <li><a href="#" class="active"><i></i> Comunidade</a></li>
-                    <li><a href="#"><i></i> Categorias</a></li>
-                </ul>
-            </nav>
-        </aside>
-        <main class="main-content">
-            <header class="main-header">
-                <h2>Olá, Thales!</h2>
-                <img src="Avatar/818a4a84f4e45638c2445ce365971a0a.png" alt="Avatar do usuário Thales" class="user-avatar">
-            </header>
-            <section class="chat-feed">
-                <article class="message-bubble received" data-post-id="post-1">
-                    <img src="Avatar/p_380164-119771.avif" alt="Avatar de Gabriela Lima" class="message-avatar">
-                    <div class="message-content">
-                        <div class="message-header"><strong>Gabriela Lima</strong><div class="message-options"><button class="options-button">...</button><div class="options-menu"><button class="delete-button">Deletar</button></div></div></div>
-                        <p class="message-text">Eu gostaria de focar mais nos meus estudos, dicas?</p>
-                        <div class="message-footer">
-                            <button class="like-button">♡ <span class="like-count">20</span></button>
-                            <button class="comment-button">💬 <span class="comment-count">2</span></button>
+        <!-- Sidebar -->
+        <div class="col-md-2 sidebar p-3">
+            <h3 class="fw-bold fs-custom text-black mb-5 text-center p-3 text-break">StudyHub</h3>
+            <a href="#"> <i class="bi bi-house-fill"></i>  Home</a>
+            <a href="#"> <i class="bi bi-calendar"></i> Calendário</a>
+            <a href="#"  class="active"> <i class="bi bi-people-fill"></i> Comunidade</a>
+            <a href="#"> <i class="bi bi-list"></i> Categorias</a>
+            <a href="assets/Briefing1.pdf"  target="_blank" rel="noopener noreferrer"> <i class="bi bi-file-text"></i> Briefing</a>
+        </div>
+        <div class="card-maior">
+            <main class="main-content">
+                <header class="main-header">
+                    <h2>Olá, Thales!</h2>
+                    <img src="Avatar/818a4a84f4e45638c2445ce365971a0a.png" alt="Avatar do usuário Thales" class="user-avatar">
+                </header>
+                <section class="chat-feed">
+                    <article class="message-bubble received" data-post-id="post-1">
+                        <img src="Avatar/p_380164-119771.avif" alt="Avatar de Gabriela Lima" class="message-avatar">
+                        <div class="message-content">
+                            <div class="message-header"><strong>Gabriela Lima</strong><div class="message-options"><button class="options-button">...</button><div class="options-menu"><button class="delete-button">Deletar</button></div></div></div>
+                            <p class="message-text">Eu gostaria de focar mais nos meus estudos, dicas?</p>
+                            <div class="message-footer">
+                                <button class="like-button"><i class="bi bi-heart"></i> <span class="like-count">20</span></button>
+                                <button class="comment-button"><i class="bi bi-chat"></i> <span class="comment-count">2</span></button>
+                            </div>
                         </div>
-                    </div>
-                </article>
-
-                 <article class="message-bubble received" data-post-id="post-2">
-                    <img src="Avatar/pe380164-121867.avif" alt="Avatar de Laura Peixoto" class="message-avatar">
-                    <div class="message-content">
-                        <div class="message-header"><strong>Laura Peixoto</strong><div class="message-options"><button class="options-button">...</button><div class="options-menu"><button class="delete-button">Deletar</button></div></div></div>
-                        <p class="message-text">Alguém fez resumo do projeto de POO??? Tô desesperada</p>
-                        <div class="message-footer">
-                           <button class="like-button">♡ <span class="like-count">13</span></button>
-                           <button class="comment-button">💬 <span class="comment-count">1</span></button>
+                    </article>
+    
+                     <article class="message-bubble received" data-post-id="post-2">
+                        <img src="Avatar/pe380164-121867.avif" alt="Avatar de Laura Peixoto" class="message-avatar">
+                        <div class="message-content">
+                            <div class="message-header"><strong>Laura Peixoto</strong><div class="message-options"><button class="options-button">...</button><div class="options-menu"><button class="delete-button">Deletar</button></div></div></div>
+                            <p class="message-text">Alguém fez resumo do projeto de POO??? Tô desesperada</p>
+                            <div class="message-footer">
+                               <button class="like-button"><i class="bi bi-heart"></i> <span class="like-count">13</span></button>
+                               <button class="comment-button"><i class="bi bi-chat"></i> <span class="comment-count">1</span></button>
+                            </div>
                         </div>
-                    </div>
-                </article>
-
-                <article class="message-bubble sent" data-post-id="post-3">
-                     <div class="message-content">
-                         <div class="message-header"><strong>Thales Rassi</strong><div class="message-options"><button class="options-button">...</button><div class="options-menu"><button class="delete-button">Deletar</button></div></div></div>
-                         <p class="message-text">Gente não esqueçam da prova segunda!!</p>
-                         <div class="message-footer">
-                            <button class="like-button">♡ <span class="like-count">78</span></button>
-                            <button class="comment-button">💬 <span class="comment-count">0</span></button>
+                    </article>
+    
+                    <article class="message-bubble sent" data-post-id="post-3">
+                         <div class="message-content">
+                             <div class="message-header"><strong>Thales Rassi</strong><div class="message-options"><button class="options-button">...</button><div class="options-menu"><button class="delete-button">Deletar</button></div></div></div>
+                             <p class="message-text">Gente não esqueçam da prova segunda!!</p>
+                             <div class="message-footer">
+                                <button class="like-button"><i class="bi bi-heart"></i> <span class="like-count">78</span></button>
+                                <button class="comment-button"><i class="bi bi-chat"></i> <span class="comment-count">0</span></button>
+                             </div>
                          </div>
-                     </div>
-                     <img src="Avatar/818a4a84f4e45638c2445ce365971a0a.png" alt="Avatar de Thales" class="message-avatar">
-                </article>
-            </section>
-            <footer class="chat-input-area">
-                <form class="message-form">
-                    <input type="text" placeholder="Escreva Aqui..." autocomplete="off">
-                    <button type="submit" class="icon-button">➤</button>
-                </form>
-            </footer>
-        </main>
+                         <img src="Avatar/818a4a84f4e45638c2445ce365971a0a.png" alt="Avatar de Thales" class="message-avatar">
+                    </article>
+                </section>
+                <footer class="chat-input-area">
+                    <form class="message-form">
+                        <input type="text" placeholder="Escreva Aqui..." autocomplete="off">
+                        <button type="submit" class="icon-button">➤</button>
+                    </form>
+                </footer>
+            </main>
+        </div>
+        
     </div>
     <aside class="comments-drawer"></aside>
 
