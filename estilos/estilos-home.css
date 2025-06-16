@@ -1,0 +1,236 @@
+        body {
+            background-color: #0d0f1a;
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            padding: 60px;
+        }
+
+        .sidebar {
+            background-color: white;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+        }
+
+        .sidebar a {
+            color: #0B0F1F;
+            text-decoration: none;
+            display: block;
+            padding: 15px;
+            font-weight: 600;
+            font-size: 1.5rem;
+            overflow-wrap: break-word;
+        }
+
+        .sidebar a.active {
+            background-color: #d3d6fb;
+            border-radius: 8px;
+        }
+    
+        
+        .sidebar a:hover:not(.active) {
+            background-color: #eef0ff; /* tom suave para hover */
+            cursor: pointer;
+        }
+
+        .card {
+            background-color: #393C4D;
+            border: none;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 1.375rem 1.75rem;
+            overflow-x: auto;
+            height: 100%;
+        }
+
+        .card-title,
+        .card-text {
+            color: white;
+        }
+
+        .card-text {
+            font-size: 0.75rem;
+            font-weight: 100;
+        }
+
+        .btn-custom {
+            background-color: #d3d6fb;
+            color: black;
+            border: none;
+        }
+
+        .btn-custom-secondary {
+            background-color: #393C4D;
+            border: none;
+            color: #CECED4;
+            font-size: larger;
+        }
+
+        .btn-custom-secondary:hover {
+            background-color: #393C4D;
+            color: #CECED4;
+            border: none;
+        }
+
+        .btn-custom:hover {
+            background-color: #c0c3e6;
+        }
+
+        .pesquisa {
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23ffffff' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0'/%3E%3C/svg%3E") no-repeat;
+            background-position: 10px center;
+            background-size: 16px 16px;
+            padding-left: 38px !important;
+            background-color: #393c4d;
+            color: white;
+        }
+
+        .pesquisa input {
+            color: #CECED4;
+        }
+
+        .pesquisa:hover {
+            cursor: pointer;
+        }
+
+        .pesquisa:focus {
+            background-color: #393c4d;
+            border-color: #d3d6fb !important;
+            box-shadow: 0 0 0 0.2rem rgba(211, 214, 251, 0.438);
+            outline: none;
+            transition: all 0.3s ease;
+            color: #CECED4;
+        }
+
+        .pesquisa::placeholder {
+            color: #CECED4;
+            font-weight: 300;
+            font-size: larger;
+        }
+
+        .pesquisa .bi-search {
+            color: #CECED4 !important;
+        }
+
+        .card-maior {
+            border-top: 1px solid #3B4461;
+            border-bottom: 1px solid #3B4461;
+            border-right: 1px solid #3B4461;
+            border-left: none;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+
+        .fs-custom-2_25rem {
+            font-size: 2.25rem;
+        }
+
+        .fs-custom-1_125rem {
+            font-size: 1.125rem;
+        }
+
+        .fs-custom-2rem {
+            font-size: 2rem
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                border-radius: 20px;
+                border-bottom-left-radius: 0px;
+                border-bottom-right-radius: 0px;
+            }
+
+            .card-maior {
+                border-top: none;
+                border-bottom: 1px solid #3B4461;
+                border-right: 1px solid #3B4461;
+                border-left: 1px solid #3B4461;
+                border-bottom-left-radius: 20px;
+                border-bottom-right-radius: 20px;
+                border-top-right-radius: 0;
+            }
+            .card {
+                flex-wrap: wrap;
+            }
+            .col-md-10.py-custom-2_5rem.px-custom-5rem.card-maior {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+            .row.contem-escolhidos-da-semana {
+                gap: 18px;
+            }
+        }
+
+        .w-35 {
+            width: 35% !important;
+        }
+
+        .w-60 {
+            width: 60% !important;
+        }
+
+        .minw-40 {
+            min-width: 40% !important;
+        }
+
+        .py-custom-2_5rem {
+            padding-top: 2.5rem !important;
+            padding-bottom: 2.5rem !important;
+        }
+
+        .px-custom-5rem {
+            padding-left: 5rem !important;
+            padding-right: 5rem !important;
+        }
+
+        .card.escolhidos-da-semana {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap-reverse;
+        }
+
+        .grupos-de-estudo .card-text {
+            font-size: 0.75rem;
+            font-weight: 300;
+        }
+
+        .post {
+            cursor: pointer;
+        }
+
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .card-body {
+            padding: 0 0 0 1rem;
+        }
+
+        .custom-carousel {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            overflow: hidden;
+        }
+
+        .carousel-track {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-image {
+            min-width: 100%;
+            height: 100%;
+        }

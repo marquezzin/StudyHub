@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyHub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="estilos/estilos-home.css">
+    <style>@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');</style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar p-3">
+                <h3 class="fw-bold fs-custom-2_25rem text-black mb-5 text-center p-3 text-break">StudyHub</h3>
+                <a href="home.html" class="active"> <i class="bi bi-house-fill"></i> Home</a>
+                <a href="calendario.html"> <i class="bi bi-calendar"></i> Calendário</a>
+                <a href="community.html"> <i class="bi bi-people-fill"></i> Comunidade</a>
+                <a href="assets/Briefing1.pdf" target="_blank" rel="noopener noreferrer"> <i
+                        class="bi bi-file-text"></i> Briefing</a>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-10 py-custom-2_5rem px-custom-5rem card-maior">
+                <header class="main-header mb-5">
+                    <div class="input-group w-35">
+                        <input type="text" class="form-control p-3 border-0 pesquisa" placeholder="Pesquisar">
+                        <button class="btn btn-custom-secondary"><i class="bi bi-sliders"></i></button>
+                    </div>
+                    <div class="user-area">
+                        <h3>Olá, Thales!</h3>
+                        <img src="Avatar/818a4a84f4e45638c2445ce365971a0a.png" alt="Avatar do usuário Thales"
+                            class="user-avatar">
+                    </div>
+                </header>
+
+                <!-- Escolhidos da Semana -->
+                <div class="row mb-4 contem-escolhidos-da-semana">
+                    <div class="col-md-8">
+                        <div class="card  escolhidos-da-semana ">
+                            <div class="w-60">
+                                <h4 class="card-text fw-medium fs-1">Escolhidos da Semana</h4>
+                                <p class="card-text fs-custom-1_125rem">Confira as publicações feitas por estudantes
+                                    nesta semana que mais receberam engajamento na comunidade!</p>
+                                <button class="btn btn-custom minw-40 fs-custom-2rem fw-700"
+                                    onclick="window.location.href='post.html'">Veja Agora</button>
+                            </div>
+                            <div class="custom-carousel">
+                                <div class="carousel-track">
+                                    <img src="images/Group 66.svg" class="carousel-image" alt="Imagem 1">
+                                    <img src="images/Group 68.svg" class="carousel-image" alt="Imagem 2">
+                                    <img src="images/Group 69.svg" class="carousel-image" alt="Imagem 3">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div>
+                                <div>
+                                    <h3 class="card-title mb-3">Grupos de Estudo</h3>
+                                </div>
+                                <div class="d-flex flex-wrap">
+                                    <div>
+                                        <img class="post" src="images/sgp.svg">
+                                    </div>
+                                    <div class="card-body p-0 grupos-de-estudo">
+                                        <p class="card-text">Revisão para prova <br /> CI (21/05)</p>
+                                        <p class="card-text"><small><i class="bi bi-calendar-event"></i> Data: 20/05<br>
+                                                <i class="bi bi-geo-alt-fill"></i> Local: Google Meet<br>
+                                                <i class="bi bi-clock-fill"></i> Horário: 13h-16h<br>
+                                                <i class="bi bi-person-plus-fill"></i> Vagas restantes: 20</small></p>
+                                        <button class="btn btn-custom w-100"
+                                            onclick="redirecionarComDados()">Participar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Apresentações -->
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5 class="fw-bold">Apresentações</h5>
+                    <a href="#" class="text-decoration-none text-light">Veja Mais</a>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="images/unsplash_TdpSX7XAcKo.svg">
+                            <div class="card-body">
+                                <h5 class="card-title">Comunicação</h5>
+                                <p class="card-text">Entenda como a ansiedade e outras impressões do mundo afetam o
+                                    convívio.</p>
+                                <button class="btn btn-custom w-100">Confira</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="images/Rectangle 85.svg">
+                            <div class="card-body">
+                                <h5 class="card-title">Desafios</h5>
+                                <p class="card-text">Encontre os principais desafios do semestre.</p>
+                                <button class="btn btn-custom w-100">Confira</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="images/unsplash_TdpSX7XAcKo (2).png">
+                            <div class="card-body">
+                                <h5 class="card-title">Prototipagem</h5>
+                                <p class="card-text">Veja como ideias se tornam protótipos desenvolvidos pelos alunos.
+                                </p>
+                                <button class="btn btn-custom w-100">Confira</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="images/unsplash_TdpSX7XAcKo.png">
+                            <div class="card-body">
+                                <h5 class="card-title">Empreendimento</h5>
+                                <p class="card-text">Descubra como ideias se tornam negócios de sucesso.</p>
+                                <button class="btn btn-custom w-100">Confira</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="images\unsplash_TdpSX7XAcKo (1).png">
+                            <div class="card-body">
+                                <h5 class="card-title">Tecnologia</h5>
+                                <p class="card-text">Ferramentas digitais que revolucionam o ensino.</p>
+                                <button class="btn btn-custom w-100">Confira</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="images/unsplash_TdpSX7XAcKo (3).png">
+                            <div class="card-body">
+                                <h5 class="card-title">IA e Modernidade</h5>
+                                <p class="card-text">Como a IA está mudando o pensamento crítico dos estudantes.</p>
+                                <button class="btn btn-custom w-100">Confira</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+<script>
+    function redirecionarComDados() {
+        const nome = encodeURIComponent("Revisão para prova de CI (21/05)");
+        const data = encodeURIComponent("2025-06-20");
+
+        window.location.href = `calendario.html?nome=${nome}&data=${data}`;
+    }
+
+    let currentSlide = 0;
+    const track = document.querySelector('.carousel-track');
+    const images = document.querySelectorAll('.carousel-image');
+
+    function updateSlidePosition() {
+        const offset = -currentSlide * 280; 
+        track.style.transform = `translateX(${offset}px)`;
+    }
+
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % images.length;
+        updateSlidePosition();
+    }
+
+    setInterval(nextSlide, 4000);
+</script>
+
+</html>

@@ -1,0 +1,158 @@
+    .ps-custom {
+        padding-left: 4rem !important;
+    }
+    /* Remove bordas visíveis e estiliza o input */
+    .custom-input {
+        background-color: #f8f9fa; /* Fundo claro */
+        border: none; /* Remove bordas */
+        border-radius: 8px; /* Bordas arredondadas */
+        padding: 10px 15px; /* Ajusta o espaçamento interno */
+    }
+
+    /* Estiliza o ícone e ajusta o container do grupo */
+    .custom-input-addon {
+        background-color: #f8f9fa; /* Fundo igual ao input */
+        border: none; /* Remove bordas do grupo */
+        border-radius: 8px; /* Mesmas bordas arredondadas */
+    }
+
+    /* Ajusta altura do input e do ícone para alinhamento */
+    .custom-input-group .custom-input,
+    .custom-input-group .custom-input-addon {
+        height: 50px; /* Altura uniforme */
+    }
+
+    /* Foco do input */
+    .custom-input:focus {
+        outline: none; /* Remove borda azul padrão */
+        background-color: #f5f5f5; /* Fundo levemente diferente ao focar */
+        box-shadow: none
+    }
+
+
+    .divider-container hr {
+        border: 1.5px solid var(--bs-secondary); /* Linhas mais grossas e cinzas */
+        margin: 0; /* Remove margens extras */
+    }
+
+    .divider-container span {
+        font-size: 0.75rem; /* Ajusta o tamanho do texto */
+    }
+
+
+    .google-btn {
+        border: 2px solid #F8F8F8; /* Borda branca */
+        border-radius: 30px !important; /* Mais arredondado */
+        background-color: transparent; /* Fundo transparente */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px; /* Espaço entre o ícone e o texto */
+        font-weight: bold;
+        transition: all 0.7s; /* Animação suave */
+    }
+
+    .fp{
+        font-family: 'Outfit', Arial, sans-serif;
+    }
+    .fp span {
+        font-size: 29px; 
+  
+    }
+
+    .fp label{
+        font-size: 0.85rem; 
+    }
+    
+    .custom-btn {
+        background-color: #08021D;
+        border-color: #08021D;
+        color: #ffffff; /* Texto branco */
+        border-radius: 8px; /* Opcional: bordas arredondadas */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra */
+        transition: background-color 0.7s, box-shadow 0.7s; /* Animação suave */
+    }
+    .custom-btn:hover {
+        background-color: #12033B; /* Cor de hover mais visível */
+        border-color: #12033B;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Sombra mais intensa ao passar o mouse */
+        color: #ffffff; /* Texto branco */
+    }
+    body {
+        background-color: #0B0F1F;
+        color: white;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .login-card {
+        background: white;
+        color: black;
+        border-radius: 50px;
+        padding: 2rem;
+        width: 100%;
+        max-width: 400px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .login-header h1 {
+        text-align: center;
+        font-size: 2.25rem;
+        margin-bottom: 5rem;
+    }
+    .form-control {
+        border-radius: 10px;
+    }
+    .btn {
+        border-radius: 10px;
+    }
+    .divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        margin: 1rem 0;
+    }
+    .divider::before, .divider::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid #ddd;
+    }
+    .divider::before {
+        margin-right: .5em;
+    }
+    .divider::after {
+        margin-left: .5em;
+    }
+    .google-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+    a {
+        color: #0B0F1F;
+    }
+
+    .text-start {
+        text-align: left;
+    }
+    .btn-icon {
+        background-color: #08021D;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+        border: none;
+    }
+    .btn-icon:hover {
+        background-color: #12033B;
+    }
+    .text-light {
+        color: #6c757d !important;
+    }
